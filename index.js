@@ -3,9 +3,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
+import recipeRoutes from './routes/recipe.js'
 
 const app = express();
-const PORT = 5000;
 
 dotenv.config();
 
@@ -13,4 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 
-app.listen(PORT, () => console.log(`server running on port: ${PORT}`));
+app.use('/recipe', recipeRoutes);
+
+const PORT = process.env.PORT || 5000;
+
+mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+	.then(() => app.listen(PORT, () => console.log(`server running on port: ${PORT}`)))
+	.catch((err) => console.log(err)) 
