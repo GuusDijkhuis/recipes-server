@@ -11,20 +11,21 @@ const RecipeSchema = new mongoose.Schema({
 	ingredients: [
 		{
 			name: String,
-			quantity: {
-				number: Number,
-				unit: String
-			}
-			
+			quantity: String,
+			unit: String
 		}
 	],
-	tools: [String],
+	tools: [
+		{
+			name: String
+		}
+	],
 	steps: [
 		{
 			name: String,
 			description: String,
 			file: String,
-			time: {
+			expectedtime: {
 				value: Number,
 				unit: String
 			}

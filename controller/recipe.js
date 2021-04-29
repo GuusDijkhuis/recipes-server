@@ -1,11 +1,9 @@
 import RecipeInfo from '../models/recipe.js';
 
 export const postRecipe = async (req, res) => {
-	// console.log(req)
-	console.log('server postt');
+	const newRecipe = new RecipeInfo(req.body);
 	try {
-		// const recipes = await RecipeInfo.find();
-		// res.status(200).json(recipes);
+		await newRecipe.save();
 	} catch (error) {
 		console.log(error);
 	}

@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use('/recipe', recipeRoutes);
+app.use('/recipes', recipeRoutes);
 
 const PORT = process.env.PORT || 5000;
 
