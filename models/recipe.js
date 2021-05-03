@@ -2,6 +2,9 @@ import mongoose from 'mongoose';
 
 const RecipeSchema = new mongoose.Schema({
 	title: String,
+	picture: {
+		type: String
+	},
 	introduction: String,
 	cookingtime: {
 		value: Number,

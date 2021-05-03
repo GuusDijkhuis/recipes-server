@@ -9,7 +9,15 @@ export const getAllRecipes = async (req, res) => {
 	}
 }
 export const postRecipe = async (req, res) => {
-	const newRecipe = new RecipeInfo(req.body);
+	const recipeData = {
+		...req.body,
+		picture: req.file.filename,
+		cookingtime: JSON.parse(req.body.cookingtime),
+		ingredients: JSON.parse(req.body.ingredients),
+		tools: JSON.parse(req.body.tools),
+		steps: JSON.parse(req.body.steps)
+	}
+	const newRecipe = new RecipeInfo(recipeData);
 	try {
 		await newRecipe.save();
 	} catch (error) {

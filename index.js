@@ -12,7 +12,6 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-
 app.use('/recipes', recipeRoutes);
 
 const PORT = process.env.PORT || 5000;
