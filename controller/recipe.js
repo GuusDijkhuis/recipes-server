@@ -2,8 +2,18 @@ import RecipeInfo from '../models/recipe.js';
 
 export const getAllRecipes = async (req, res) => {
 	try {
-		const allRecipes = await RecipeInfo.find();
-		res.status(200).json(allRecipes);
+		const recipeData = await RecipeInfo.find()
+		const newRecipeData = await recipeData.map(r => {
+			const recipe = {
+				...r._doc,
+				request: {
+					type: 'GET',
+					url: `http://localhost:5000/${r.picture}`
+				}
+			}
+			return recipe;
+		})
+		res.status(200).json(newRecipeData);
 	} catch (error) {
 		console.log(error);
 	}
@@ -11,7 +21,7 @@ export const getAllRecipes = async (req, res) => {
 export const postRecipe = async (req, res) => {
 	const recipeData = {
 		...req.body,
-		picture: req.file.filename,
+		picture: req.file.path,
 		cookingtime: JSON.parse(req.body.cookingtime),
 		ingredients: JSON.parse(req.body.ingredients),
 		tools: JSON.parse(req.body.tools),
