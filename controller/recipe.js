@@ -42,3 +42,10 @@ export const getRecipe = async (req, res) => {
 		console.log(error);
 	}
 }
+export const deleteRecipe = async (req, res) => {
+	try {
+		await RecipeInfo.deleteOne({ _id: req.params.id});
+	} catch (error) {
+		console.log(error);
+	}
+}
