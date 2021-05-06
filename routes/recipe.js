@@ -26,11 +26,12 @@ const fileFilter = (req, file, cb) => {
 let upload = multer({ storage, fileFilter });
 
 
-import { postRecipe, getAllRecipes } from '../controller/recipe.js';
+import { postRecipe, getAllRecipes, getRecipe } from '../controller/recipe.js';
 
 
 router.post('/', upload.single('picture'), postRecipe);
 router.get('/', getAllRecipes);
+router.get('/:id', getRecipe);
 
 export default router;
 
