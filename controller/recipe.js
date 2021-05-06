@@ -36,7 +36,7 @@ export const postRecipe = async (req, res) => {
 }
 export const getRecipe = async (req, res) => {
 	try {
-		const recipeData = await RecipeInfo.findOne({ _id: req.params.id });
+		const recipeData = await RecipeInfo.findOne({ _id: req.params.id});
 		res.status(200).json(recipeData);
 	} catch (error) {
 		console.log(error);
