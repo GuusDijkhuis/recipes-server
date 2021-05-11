@@ -19,14 +19,8 @@ export const getAllRecipes = async (req, res) => {
 	}
 }
 export const postRecipe = async (req, res) => {
-	const recipeData = {
-		...req.body,
-		picture: req.file.path,
-		cookingtime: JSON.parse(req.body.cookingtime),
-		ingredients: JSON.parse(req.body.ingredients),
-		tools: JSON.parse(req.body.tools),
-		steps: JSON.parse(req.body.steps)
-	}
+	const filePath = req.file ? req.file.path : req.body.picture;
+	const recipeData = dbFormat(req.body, filePath);
 	const newRecipe = new RecipeInfo(recipeData);
 	try {
 		await newRecipe.save();
@@ -47,5 +41,25 @@ export const deleteRecipe = async (req, res) => {
 		await RecipeInfo.deleteOne({ _id: req.params.id});
 	} catch (error) {
 		console.log(error);
+	}
+}
+export const updateRecipe = async (req, res) => {
+	const filePath = req.file ? req.file.path : req.body.picture;
+	const recipeData = dbFormat(req.body, filePath);
+	try {
+		await RecipeInfo.findOneAndUpdate({ _id: req.params.id }, recipeData)
+	} catch(error) {
+		console.log(error)
+	}
+}
+
+const dbFormat = (recipe, file) => {
+	return {
+		...recipe,
+		picture: file,
+		cookingtime: JSON.parse(recipe.cookingtime),
+		ingredients: JSON.parse(recipe.ingredients),
+		tools: JSON.parse(recipe.tools),
+		steps: JSON.parse(recipe.steps)
 	}
 }
