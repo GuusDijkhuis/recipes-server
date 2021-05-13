@@ -5,9 +5,10 @@ import dotenv from 'dotenv';
 
 import recipeRoutes from './routes/recipe.js'
 
+dotenv.config();
+
 const app = express();
 
-dotenv.config();
 
 app.use(cors());
 app.use(express.json());
