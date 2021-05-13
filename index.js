@@ -15,6 +15,11 @@ app.use('/images', express.static('images'));
 
 app.use('/recipes', recipeRoutes);
 
+app.get('/', (req, res) => {
+	res.send('Database status: Online');
+})
+
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
