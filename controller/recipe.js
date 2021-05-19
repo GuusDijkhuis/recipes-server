@@ -8,7 +8,7 @@ export const getAllRecipes = async (req, res) => {
 				...r._doc,
 				request: {
 					type: 'GET',
-					url: `http://localhost:5000/${r.picture}`
+					url: `https://recipes-application.herokuapp.com/images/${r.picture}`
 				}
 			}
 			return recipe;
