@@ -28,7 +28,6 @@ let upload = multer({ storage, fileFilter });
 
 import { postRecipe, getAllRecipes, getRecipe, deleteRecipe, updateRecipe } from '../controller/recipe.js';
 
-
 router.post('/', upload.single('picture'), postRecipe);
 router.get('/', getAllRecipes);
 router.get('/:id', getRecipe);

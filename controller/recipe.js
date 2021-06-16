@@ -21,13 +21,7 @@ export const getAllRecipes = async (req, res) => {
 export const postRecipe = async (req, res) => {
 	const filePath = req.file ? req.file.path : req.body.picture;
 	const recipeData = dbFormat(req.body, filePath);
-	const newRecipe = new RecipeInfo({
-		...recipeData,
-		request: {
-			type: 'GET',
-			url: `https://recipes-application.herokuapp.com/${recipeData.picture}`
-		}
-	});
+	const newRecipe = new RecipeInfo({ recipeData });
 	try {
 		await newRecipe.save();
 	} catch (error) {
@@ -37,14 +31,7 @@ export const postRecipe = async (req, res) => {
 export const getRecipe = async (req, res) => {
 	try {
 		const recipeData = await RecipeInfo.findOne({ _id: req.params.id});
-		const data = {
-			...recipeData,
-			request: {
-				type: 'GET',
-				url: `https://recipes-application.herokuapp.com/${recipeData.picture}`
-			}
-		}
-		res.status(200).json(data);
+		res.status(200).json(recipeData);
 	} catch (error) {
 		console.log(error);
 	}
